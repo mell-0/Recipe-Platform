@@ -24,10 +24,7 @@ import org.example.foodrecipeplatform.Model.ShoppingItem;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -149,12 +146,15 @@ public class HomeScreenController implements Initializable {
         List<CardData> rand_results = api.getRandomMeal() ;
 
         // Loop for amount of random meals to show on grid
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 2; i++) {
             List<CardData> result = api.getRandomMeal();
             if (result != null && !result.isEmpty()) {
                 rand_results.add(result.get(0)); // assuming it returns a list with one element
             }
         }
+
+        Collections.addAll(rand_results, api.searchMealsByName("Sushi").getFirst(), api.searchMealsByName("Spicy Arrabiata Penne").getFirst(),
+                api.searchMealsByName("Chick-Fil-A Sandwich").getFirst());
         setGrid(rand_results);
 
     } // End initialize method
